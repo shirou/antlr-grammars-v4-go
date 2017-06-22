@@ -32,6 +32,43 @@
  */
 grammar Golang;
 
+@header {
+import "strings"
+
+var _ = strings.Contains // suppress unused error
+}
+
+@parser::members {
+func lineTerminatorAhead(parser antlr.Parser) bool {
+        // Get the token ahead of the current index.
+        possibleIndexEosToken := parser.GetCurrentToken().GetTokenIndex() - 1;
+        _input := parser.GetTokenStream()
+        ahead := _input.Get(possibleIndexEosToken);
+        if (ahead.GetChannel() != antlr.LexerHidden) {
+            // We're only interested in tokens on the HIDDEN channel.
+            return false;
+        }
+
+        if (ahead.GetTokenType() == GolangParserTERMINATOR) {
+            // There is definitely a line terminator ahead.
+            return true;
+        }
+
+        if (ahead.GetTokenType() == GolangParserWS) {
+            // Get the token ahead of the current whitespaces.
+            possibleIndexEosToken = parser.GetCurrentToken().GetTokenIndex() - 2;
+            ahead = _input.Get(possibleIndexEosToken);
+        }
+
+        // Get the token's text and type.
+        text := ahead.GetText();
+        type_ := ahead.GetTokenType();
+
+        // Check if the token is, or contains a line terminator.
+        return (type_ == GolangParserCOMMENT && (strings.Contains(text, "\r")) || strings.Contains(text, "\n")) || (type_ == GolangParserTERMINATOR);
+    }
+}
+
 //SourceFile       = PackageClause ";" { ImportDecl ";" } { TopLevelDecl ";" } .
 sourceFile
     : packageClause eos ( importDecl eos )* ( topLevelDecl eos)*
@@ -629,8 +666,8 @@ conversion
 eos
     : ';'
     | EOF
-    | {lineTerminatorAhead()}?
-    | {_input.LT(1).getText().equals("}") }?
+    | {lineTerminatorAhead(p)}?
+    | { (p.GetTokenStream().LT(1).GetText() == "}") }?
     ;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -683,7 +720,7 @@ BINARY_OP
     ;
 
 //rel_op     = "==" | "!=" | "<" | "<=" | ">" | ">=" .
-fragment REL_OP
+REL_OP
     : '=='
     | '!='
     | '<'
@@ -693,7 +730,7 @@ fragment REL_OP
     ;
 
 //add_op     = "+" | "-" | "|" | "^" .
-fragment ADD_OP
+ADD_OP
     : '+'
     | '-'
     | '|'
@@ -701,7 +738,7 @@ fragment ADD_OP
     ;
 
 //mul_op     = "*" | "/" | "%" | "<<" | ">>" | "&" | "&^" .
-fragment MUL_OP
+MUL_OP
     : '*'
     | '/'
     | '%'
@@ -712,7 +749,7 @@ fragment MUL_OP
     ;
 
 //unary_op   = "+" | "-" | "!" | "^" | "*" | "&" | "<-" .
-fragment UNARY_OP
+UNARY_OP
     : '+'
     | '-'
     | '!'
@@ -733,17 +770,17 @@ INT_LIT
     ;
 
 //decimal_lit = ( "1" … "9" ) { decimal_digit } .
-fragment DECIMAL_LIT
+DECIMAL_LIT
     : [1-9] DECIMAL_DIGIT*
     ;
 
 //octal_lit   = "0" { octal_digit } .
-fragment OCTAL_LIT
+OCTAL_LIT
     : '0' OCTAL_DIGIT*
     ;
 
 //hex_lit     = "0" ( "x" | "X" ) hex_digit { hex_digit } .
-fragment HEX_LIT
+HEX_LIT
     : '0' ( 'x' | 'X' ) HEX_DIGIT+
     ;
 
@@ -760,12 +797,12 @@ FLOAT_LIT
     ;
 
 //decimals  = decimal_digit { decimal_digit } .
-fragment DECIMALS
+DECIMALS
     : DECIMAL_DIGIT+
     ;
 
 //exponent  = ( "e" | "E" ) [ "+" | "-" ] decimals .
-fragment EXPONENT
+EXPONENT
     : ( 'e' | 'E' ) ( '+' | '-' )? DECIMALS
     ;
 
@@ -784,7 +821,7 @@ RUNE_LIT
     ;
 
 //unicode_value    = unicode_char | little_u_value | big_u_value | escaped_char .
-fragment UNICODE_VALUE
+UNICODE_VALUE
     : UNICODE_CHAR
     | LITTLE_U_VALUE
     | BIG_U_VALUE
@@ -792,17 +829,17 @@ fragment UNICODE_VALUE
     ;
 
 //byte_value       = octal_byte_value | hex_byte_value .
-fragment BYTE_VALUE
+BYTE_VALUE
     : OCTAL_BYTE_VALUE | HEX_BYTE_VALUE
     ;
 
 //octal_byte_value = `\` octal_digit octal_digit octal_digit .
-fragment OCTAL_BYTE_VALUE
+OCTAL_BYTE_VALUE
     : '\\' OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT
     ;
 
 //hex_byte_value   = `\` "x" hex_digit hex_digit .
-fragment HEX_BYTE_VALUE
+HEX_BYTE_VALUE
     : '\\' 'x' HEX_DIGIT HEX_DIGIT
     ;
 
@@ -818,7 +855,7 @@ BIG_U_VALUE
     ;
 
 //escaped_char     = `\` ( "a" | "b" | "f" | "n" | "r" | "t" | "v" | `\` | "'" | `"` ) .
-fragment ESCAPED_CHAR
+ESCAPED_CHAR
     : '\\' ( 'a' | 'b' | 'f' | 'n' | 'r' | 't' | 'v' | '\\' | '\'' | '"' )
     ;
 
@@ -832,12 +869,12 @@ STRING_LIT
     ;
 
 //raw_string_lit         = "`" { unicode_char | newline } "`" .
-fragment RAW_STRING_LIT
+RAW_STRING_LIT
     : '`' ( UNICODE_CHAR | NEWLINE )* '`'
     ;
 
 //interpreted_string_lit = `"` { unicode_value | byte_value } `"` .
-fragment INTERPRETED_STRING_LIT
+INTERPRETED_STRING_LIT
     : '"' ( UNICODE_VALUE | BYTE_VALUE )* '"'
     ;
 
@@ -847,36 +884,36 @@ fragment INTERPRETED_STRING_LIT
 //
 
 //letter        = unicode_letter | "_" .
-fragment LETTER
+LETTER
     : UNICODE_LETTER
     | '_'
     ;
 
 //decimal_digit = "0" … "9" .
-fragment DECIMAL_DIGIT
+DECIMAL_DIGIT
     : [0-9]
     ;
 
 //octal_digit   = "0" … "7" .
-fragment OCTAL_DIGIT
+OCTAL_DIGIT
     : [0-7]
     ;
 
 //hex_digit     = "0" … "9" | "A" … "F" | "a" … "f" .
-fragment HEX_DIGIT
+HEX_DIGIT
     : [0-9a-fA-F]
     ;
 
 //newline = /* the Unicode code point U+000A */ .
-fragment NEWLINE
+NEWLINE
     : [\u000A]
     ;
 
 //unicode_char = /* an arbitrary Unicode code point except newline */ .
-fragment UNICODE_CHAR   : ~[\u000A] ;
+UNICODE_CHAR   : ~[\u000A] ;
 
 //unicode_digit = /* a Unicode code point classified as "Number, decimal digit" */ .
-fragment UNICODE_DIGIT
+UNICODE_DIGIT
  : [\u0030-\u0039]
  | [\u0660-\u0669]
  | [\u06F0-\u06F9]
@@ -900,7 +937,7 @@ fragment UNICODE_DIGIT
  ;
 
 //unicode_letter = /* a Unicode code point classified as "Letter" */ .
-fragment UNICODE_LETTER
+UNICODE_LETTER
  : [\u0041-\u005A]
  | [\u0061-\u007A]
  | [\u00AA]
