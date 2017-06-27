@@ -22,4 +22,6 @@ go test ./...
 ## LICENSES
 
 - sqlite: Bart Kiers (MIT)
-- golang: Sasa Coh, Michał Błotniak (BSD)
+- golang(broken): Sasa Coh, Michał Błotniak (BSD)
+- JSON: Terence Parr
+- python3: Bart Kiers, (MIT)
