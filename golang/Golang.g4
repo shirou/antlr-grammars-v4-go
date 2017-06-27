@@ -720,7 +720,7 @@ BINARY_OP
     ;
 
 //rel_op     = "==" | "!=" | "<" | "<=" | ">" | ">=" .
-REL_OP
+fragment REL_OP
     : '=='
     | '!='
     | '<'
@@ -730,7 +730,7 @@ REL_OP
     ;
 
 //add_op     = "+" | "-" | "|" | "^" .
-ADD_OP
+fragment ADD_OP
     : '+'
     | '-'
     | '|'
@@ -738,7 +738,7 @@ ADD_OP
     ;
 
 //mul_op     = "*" | "/" | "%" | "<<" | ">>" | "&" | "&^" .
-MUL_OP
+fragment MUL_OP
     : '*'
     | '/'
     | '%'
@@ -749,7 +749,7 @@ MUL_OP
     ;
 
 //unary_op   = "+" | "-" | "!" | "^" | "*" | "&" | "<-" .
-UNARY_OP
+fragment UNARY_OP
     : '+'
     | '-'
     | '!'
@@ -770,17 +770,17 @@ INT_LIT
     ;
 
 //decimal_lit = ( "1" … "9" ) { decimal_digit } .
-DECIMAL_LIT
+fragment DECIMAL_LIT
     : [1-9] DECIMAL_DIGIT*
     ;
 
 //octal_lit   = "0" { octal_digit } .
-OCTAL_LIT
+fragment OCTAL_LIT
     : '0' OCTAL_DIGIT*
     ;
 
 //hex_lit     = "0" ( "x" | "X" ) hex_digit { hex_digit } .
-HEX_LIT
+fragment HEX_LIT
     : '0' ( 'x' | 'X' ) HEX_DIGIT+
     ;
 
@@ -797,12 +797,12 @@ FLOAT_LIT
     ;
 
 //decimals  = decimal_digit { decimal_digit } .
-DECIMALS
+fragment DECIMALS
     : DECIMAL_DIGIT+
     ;
 
 //exponent  = ( "e" | "E" ) [ "+" | "-" ] decimals .
-EXPONENT
+fragment EXPONENT
     : ( 'e' | 'E' ) ( '+' | '-' )? DECIMALS
     ;
 
@@ -821,7 +821,7 @@ RUNE_LIT
     ;
 
 //unicode_value    = unicode_char | little_u_value | big_u_value | escaped_char .
-UNICODE_VALUE
+fragment UNICODE_VALUE
     : UNICODE_CHAR
     | LITTLE_U_VALUE
     | BIG_U_VALUE
@@ -829,17 +829,17 @@ UNICODE_VALUE
     ;
 
 //byte_value       = octal_byte_value | hex_byte_value .
-BYTE_VALUE
+fragment BYTE_VALUE
     : OCTAL_BYTE_VALUE | HEX_BYTE_VALUE
     ;
 
 //octal_byte_value = `\` octal_digit octal_digit octal_digit .
-OCTAL_BYTE_VALUE
+fragment OCTAL_BYTE_VALUE
     : '\\' OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT
     ;
 
 //hex_byte_value   = `\` "x" hex_digit hex_digit .
-HEX_BYTE_VALUE
+fragment HEX_BYTE_VALUE
     : '\\' 'x' HEX_DIGIT HEX_DIGIT
     ;
 
@@ -855,7 +855,7 @@ BIG_U_VALUE
     ;
 
 //escaped_char     = `\` ( "a" | "b" | "f" | "n" | "r" | "t" | "v" | `\` | "'" | `"` ) .
-ESCAPED_CHAR
+fragment ESCAPED_CHAR
     : '\\' ( 'a' | 'b' | 'f' | 'n' | 'r' | 't' | 'v' | '\\' | '\'' | '"' )
     ;
 
@@ -869,12 +869,12 @@ STRING_LIT
     ;
 
 //raw_string_lit         = "`" { unicode_char | newline } "`" .
-RAW_STRING_LIT
+fragment RAW_STRING_LIT
     : '`' ( UNICODE_CHAR | NEWLINE )* '`'
     ;
 
 //interpreted_string_lit = `"` { unicode_value | byte_value } `"` .
-INTERPRETED_STRING_LIT
+fragment INTERPRETED_STRING_LIT
     : '"' ( UNICODE_VALUE | BYTE_VALUE )* '"'
     ;
 
@@ -884,36 +884,36 @@ INTERPRETED_STRING_LIT
 //
 
 //letter        = unicode_letter | "_" .
-LETTER
+fragment LETTER
     : UNICODE_LETTER
     | '_'
     ;
 
 //decimal_digit = "0" … "9" .
-DECIMAL_DIGIT
+fragment DECIMAL_DIGIT
     : [0-9]
     ;
 
 //octal_digit   = "0" … "7" .
-OCTAL_DIGIT
+fragment OCTAL_DIGIT
     : [0-7]
     ;
 
 //hex_digit     = "0" … "9" | "A" … "F" | "a" … "f" .
-HEX_DIGIT
+fragment HEX_DIGIT
     : [0-9a-fA-F]
     ;
 
 //newline = /* the Unicode code point U+000A */ .
-NEWLINE
+fragment NEWLINE
     : [\u000A]
     ;
 
 //unicode_char = /* an arbitrary Unicode code point except newline */ .
-UNICODE_CHAR   : ~[\u000A] ;
+fragment UNICODE_CHAR   : ~[\u000A] ;
 
 //unicode_digit = /* a Unicode code point classified as "Number, decimal digit" */ .
-UNICODE_DIGIT
+fragment UNICODE_DIGIT
  : [\u0030-\u0039]
  | [\u0660-\u0669]
  | [\u06F0-\u06F9]
@@ -937,7 +937,7 @@ UNICODE_DIGIT
  ;
 
 //unicode_letter = /* a Unicode code point classified as "Letter" */ .
-UNICODE_LETTER
+fragment UNICODE_LETTER
  : [\u0041-\u005A]
  | [\u0061-\u007A]
  | [\u00AA]
