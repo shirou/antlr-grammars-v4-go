@@ -12,16 +12,11 @@ Beware of the licenses on the individual grammars. **THERE IS NO COMMON
 LICENSE!** When in doubt or you don't know what you're doing, please use
 the BSD or MIT license.
 
-## Testing the Grammars
 
-```
-go test ./...
-```
-
-
-## LICENSES
+## LICENSES And Original Author
 
 - sqlite: Bart Kiers (MIT)
 - golang(broken): Sasa Coh, Michał Błotniak (BSD)
 - JSON: Terence Parr
 - python3: Bart Kiers, (MIT)
+- graphql: Joseph T. McBride, (MIT)
