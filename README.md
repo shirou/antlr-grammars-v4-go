@@ -18,5 +18,6 @@ the BSD or MIT license.
 - sqlite: Bart Kiers (MIT)
 - golang(broken): Sasa Coh, Michał Błotniak (BSD)
 - JSON: Terence Parr
-- python3: Bart Kiers, (MIT)
-- graphql: Joseph T. McBride, (MIT)
+- python3: Bart Kiers (MIT)
+- graphql: Joseph T. McBride (MIT)
+- xml: Terence Parr (BSD)

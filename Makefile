@@ -1,6 +1,7 @@
 BIN=antlr4
+GRAMMERS= sqlite golang json python3 xml graphql
+
 build:
-	cd sqlite && $(BIN) -Dlanguage=Go SQLite.g4
-	cd golang && $(BIN) -Dlanguage=Go Golang.g4
-	cd json && $(BIN) -Dlanguage=Go JSON.g4
-	cd python3 && $(BIN) -Dlanguage=Go Python3.g4
+	@for grammer in $(GRAMMERS) ; do \
+		(echo $$grammer && cd $$grammer && $(BIN) -Dlanguage=Go *.g4) ;\
+	done
