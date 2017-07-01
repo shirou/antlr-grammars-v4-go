@@ -21,3 +21,4 @@ the BSD or MIT license.
 - python3: Bart Kiers (MIT)
 - graphql: Joseph T. McBride (MIT)
 - xml: Terence Parr (BSD)
+- C: Sam Harwell (BSD)
