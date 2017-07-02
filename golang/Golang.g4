@@ -32,60 +32,24 @@
  */
 grammar Golang;
 
-@header {
-import "strings"
-
-var _ = strings.Contains // suppress unused error
-}
-
-@parser::members {
-func lineTerminatorAhead(parser antlr.Parser) bool {
-        // Get the token ahead of the current index.
-        possibleIndexEosToken := parser.GetCurrentToken().GetTokenIndex() - 1;
-        _input := parser.GetTokenStream()
-        ahead := _input.Get(possibleIndexEosToken);
-        if (ahead.GetChannel() != antlr.LexerHidden) {
-            // We're only interested in tokens on the HIDDEN channel.
-            return false;
-        }
-
-        if (ahead.GetTokenType() == GolangParserTERMINATOR) {
-            // There is definitely a line terminator ahead.
-            return true;
-        }
-
-        if (ahead.GetTokenType() == GolangParserWS) {
-            // Get the token ahead of the current whitespaces.
-            possibleIndexEosToken = parser.GetCurrentToken().GetTokenIndex() - 2;
-            ahead = _input.Get(possibleIndexEosToken);
-        }
-
-        // Get the token's text and type.
-        text := ahead.GetText();
-        type_ := ahead.GetTokenType();
-
-        // Check if the token is, or contains a line terminator.
-        return (type_ == GolangParserCOMMENT && (strings.Contains(text, "\r")) || strings.Contains(text, "\n")) || (type_ == GolangParserTERMINATOR);
-    }
-}
-
 //SourceFile       = PackageClause ";" { ImportDecl ";" } { TopLevelDecl ";" } .
 sourceFile
-    : packageClause eos ( importDecl eos )* ( topLevelDecl eos)*
+    : packageClause TERMINATOR+ importDecl* TERMINATOR+ topLevelDecl*
     ;
 
 //PackageClause  = "package" PackageName .
 //PackageName    = identifier .
 packageClause
-    : 'package' IDENTIFIER
+    : 'package' WS IDENTIFIER
     ;
 
 importDecl
-    : 'import' ( importSpec | '(' ( importSpec eos )* ')' )
+    : 'import' WS ( importSpec | '(' TERMINATOR ( importSpec )* ')' TERMINATOR )
+    | 'import' WS  importPath
     ;
 
 importSpec
-    : ( '.' | IDENTIFIER )? importPath
+    : WS? ( '.' | IDENTIFIER )? importPath
     ;
 
 importPath
@@ -104,12 +68,13 @@ declaration
     : constDecl
     | typeDecl
     | varDecl
+    | COMMENT
     ;
 
 
 //ConstDecl      = "const" ( ConstSpec | "(" { ConstSpec ";" } ")" ) .
 constDecl
-    : 'const' ( constSpec | '(' ( constSpec eos )* ')' )
+    : 'const' ( constSpec | '(' ( constSpec )* ')' )
     ;
 
 //ConstSpec      = IdentifierList [ [ Type ] "=" ExpressionList ] .
@@ -146,7 +111,7 @@ typeSpec
 //Function     = Signature FunctionBody .
 //FunctionBody = Block .
 functionDecl
-    : 'func' IDENTIFIER ( function | signature )
+    : 'func' WS IDENTIFIER ( function | signature ) TERMINATOR
     ;
 
 function
@@ -166,7 +131,7 @@ receiver
 //VarDecl     = "var" ( VarSpec | "(" { VarSpec ";" } ")" ) .
 //VarSpec     = IdentifierList ( Type [ "=" ExpressionList ] | "=" ExpressionList ) .
 varDecl
-    : 'var' ( varSpec | '(' ( varSpec eos )* ')' )
+    : 'var' ( varSpec | '(' ( varSpec )* ')' )
     ;
 
 varSpec
@@ -176,12 +141,12 @@ varSpec
 
 //Block = "{" StatementList "}" .
 block
-    : '{' statementList '}'
+    : '{' WS statementList WS '}'
     ;
 
 //StatementList = { Statement ";" } .
 statementList
-    : ( statement eos )*
+    : ( statement )*
     ;
 
 statement
@@ -200,6 +165,7 @@ statement
     | selectStmt
     | forStmt
     | deferStmt
+    | TERMINATOR
 	;
 
 //SimpleStmt = EmptyStmt | ExpressionStmt | SendStmt | IncDecStmt | Assignment | ShortVarDecl .
@@ -423,7 +389,7 @@ pointerType
 //MethodName         = identifier .
 //InterfaceTypeName  = TypeName .
 interfaceType
-    : 'interface' '{' ( methodSpec eos )* '}'
+    : 'interface' '{' ( methodSpec )* '}'
     ;
 
 //SliceType = "[" "]" ElementType .
@@ -569,7 +535,7 @@ element
 //AnonymousField = [ "*" ] TypeName .
 //Tag            = string_lit .
 structType
-    : 'struct' '{' ( fieldDecl eos )* '}'
+    : 'struct' '{' ( fieldDecl  )* '}'
     ;
 
 fieldDecl
@@ -664,10 +630,10 @@ conversion
     ;
 
 eos
-    : ';'
+    : WS
+    | TERMINATOR
+    | ';'
     | EOF
-    | {lineTerminatorAhead(p)}?
-    | { (p.GetTokenStream().LT(1).GetText() == "}") }?
     ;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -675,6 +641,14 @@ eos
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LEXER
 
+COMMENT
+    :   '/*' .*? '*/'
+    | LINE_COMMENT
+    ;
+
+LINE_COMMENT
+    :   '//' ~[\r\n]* [\r\n]
+    ;
 
 // Identifiers
 //identifier = letter { letter | unicode_digit } .
@@ -1205,18 +1179,10 @@ fragment UNICODE_LETTER
 // Whitespace and comments
 //
 
-WS  :  [ \t]+ -> channel(HIDDEN)
-    ;
-
-COMMENT
-    :   '/*' .*? '*/' -> channel(HIDDEN)
+WS
+    : [ \t]+
     ;
 
 TERMINATOR
-	: [\r\n]+ -> channel(HIDDEN)
+	: [\r\n]+
 	;
-
-
-LINE_COMMENT
-    :   '//' ~[\r\n]* -> skip
-    ;

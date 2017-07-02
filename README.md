@@ -1,5 +1,10 @@
 This is a fork of [ANTLR grammers-v4](https://github.com/antlr/grammars-v4) and add some modification to golang target.
 
+This repositories grammers are mainly used
+for [golightan](https://github.com/shirou/golightan), syntax
+highlighter. So grammers are emit all of the tokens including
+WhiteSpaces.
+
 # grammars-v4
 
 Grammars written for [ANTLR v4](https://github.com/antlr/antlr4)
