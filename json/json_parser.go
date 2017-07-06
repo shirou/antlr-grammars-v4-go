@@ -16,30 +16,30 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 1072, 54993, 33286, 44333, 17431, 44785, 36224, 43741, 3, 14, 58, 4,
+	3, 1072, 54993, 33286, 44333, 17431, 44785, 36224, 43741, 3, 15, 57, 4,
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 3, 2, 3, 2, 3,
 	3, 3, 3, 3, 3, 3, 3, 7, 3, 19, 10, 3, 12, 3, 14, 3, 22, 11, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 5, 3, 28, 10, 3, 3, 4, 3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3,
-	5, 3, 5, 7, 5, 38, 10, 5, 12, 5, 14, 5, 41, 11, 5, 3, 5, 3, 5, 3, 5, 3,
-	5, 5, 5, 47, 10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 56,
-	10, 6, 3, 6, 2, 2, 7, 2, 4, 6, 8, 10, 2, 2, 62, 2, 12, 3, 2, 2, 2, 4, 27,
-	3, 2, 2, 2, 6, 29, 3, 2, 2, 2, 8, 46, 3, 2, 2, 2, 10, 55, 3, 2, 2, 2, 12,
-	13, 5, 10, 6, 2, 13, 3, 3, 2, 2, 2, 14, 15, 7, 3, 2, 2, 15, 20, 5, 6, 4,
-	2, 16, 17, 7, 4, 2, 2, 17, 19, 5, 6, 4, 2, 18, 16, 3, 2, 2, 2, 19, 22,
-	3, 2, 2, 2, 20, 18, 3, 2, 2, 2, 20, 21, 3, 2, 2, 2, 21, 23, 3, 2, 2, 2,
-	22, 20, 3, 2, 2, 2, 23, 24, 7, 5, 2, 2, 24, 28, 3, 2, 2, 2, 25, 26, 7,
-	3, 2, 2, 26, 28, 7, 5, 2, 2, 27, 14, 3, 2, 2, 2, 27, 25, 3, 2, 2, 2, 28,
-	5, 3, 2, 2, 2, 29, 30, 7, 12, 2, 2, 30, 31, 7, 6, 2, 2, 31, 32, 5, 10,
-	6, 2, 32, 7, 3, 2, 2, 2, 33, 34, 7, 7, 2, 2, 34, 39, 5, 10, 6, 2, 35, 36,
-	7, 4, 2, 2, 36, 38, 5, 10, 6, 2, 37, 35, 3, 2, 2, 2, 38, 41, 3, 2, 2, 2,
-	39, 37, 3, 2, 2, 2, 39, 40, 3, 2, 2, 2, 40, 42, 3, 2, 2, 2, 41, 39, 3,
-	2, 2, 2, 42, 43, 7, 8, 2, 2, 43, 47, 3, 2, 2, 2, 44, 45, 7, 7, 2, 2, 45,
-	47, 7, 8, 2, 2, 46, 33, 3, 2, 2, 2, 46, 44, 3, 2, 2, 2, 47, 9, 3, 2, 2,
-	2, 48, 56, 7, 12, 2, 2, 49, 56, 7, 13, 2, 2, 50, 56, 5, 4, 3, 2, 51, 56,
-	5, 8, 5, 2, 52, 56, 7, 9, 2, 2, 53, 56, 7, 10, 2, 2, 54, 56, 7, 11, 2,
-	2, 55, 48, 3, 2, 2, 2, 55, 49, 3, 2, 2, 2, 55, 50, 3, 2, 2, 2, 55, 51,
-	3, 2, 2, 2, 55, 52, 3, 2, 2, 2, 55, 53, 3, 2, 2, 2, 55, 54, 3, 2, 2, 2,
-	56, 11, 3, 2, 2, 2, 7, 20, 27, 39, 46, 55,
+	3, 3, 3, 3, 3, 5, 3, 28, 10, 3, 3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3,
+	5, 7, 5, 37, 10, 5, 12, 5, 14, 5, 40, 11, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5,
+	5, 46, 10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 55, 10, 6,
+	3, 6, 2, 2, 7, 2, 4, 6, 8, 10, 2, 2, 61, 2, 12, 3, 2, 2, 2, 4, 27, 3, 2,
+	2, 2, 6, 29, 3, 2, 2, 2, 8, 45, 3, 2, 2, 2, 10, 54, 3, 2, 2, 2, 12, 13,
+	5, 10, 6, 2, 13, 3, 3, 2, 2, 2, 14, 15, 7, 3, 2, 2, 15, 20, 5, 6, 4, 2,
+	16, 17, 7, 4, 2, 2, 17, 19, 5, 6, 4, 2, 18, 16, 3, 2, 2, 2, 19, 22, 3,
+	2, 2, 2, 20, 18, 3, 2, 2, 2, 20, 21, 3, 2, 2, 2, 21, 23, 3, 2, 2, 2, 22,
+	20, 3, 2, 2, 2, 23, 24, 7, 5, 2, 2, 24, 28, 3, 2, 2, 2, 25, 26, 7, 3, 2,
+	2, 26, 28, 7, 5, 2, 2, 27, 14, 3, 2, 2, 2, 27, 25, 3, 2, 2, 2, 28, 5, 3,
+	2, 2, 2, 29, 30, 7, 12, 2, 2, 30, 31, 5, 10, 6, 2, 31, 7, 3, 2, 2, 2, 32,
+	33, 7, 6, 2, 2, 33, 38, 5, 10, 6, 2, 34, 35, 7, 4, 2, 2, 35, 37, 5, 10,
+	6, 2, 36, 34, 3, 2, 2, 2, 37, 40, 3, 2, 2, 2, 38, 36, 3, 2, 2, 2, 38, 39,
+	3, 2, 2, 2, 39, 41, 3, 2, 2, 2, 40, 38, 3, 2, 2, 2, 41, 42, 7, 7, 2, 2,
+	42, 46, 3, 2, 2, 2, 43, 44, 7, 6, 2, 2, 44, 46, 7, 7, 2, 2, 45, 32, 3,
+	2, 2, 2, 45, 43, 3, 2, 2, 2, 46, 9, 3, 2, 2, 2, 47, 55, 7, 11, 2, 2, 48,
+	55, 7, 14, 2, 2, 49, 55, 5, 4, 3, 2, 50, 55, 5, 8, 5, 2, 51, 55, 7, 8,
+	2, 2, 52, 55, 7, 9, 2, 2, 53, 55, 7, 10, 2, 2, 54, 47, 3, 2, 2, 2, 54,
+	48, 3, 2, 2, 2, 54, 49, 3, 2, 2, 2, 54, 50, 3, 2, 2, 2, 54, 51, 3, 2, 2,
+	2, 54, 52, 3, 2, 2, 2, 54, 53, 3, 2, 2, 2, 55, 11, 3, 2, 2, 2, 7, 20, 27,
+	38, 45, 54,
 }
 
 var deserializer = antlr.NewATNDeserializer(nil)
@@ -47,11 +47,13 @@ var deserializer = antlr.NewATNDeserializer(nil)
 var deserializedATN = deserializer.DeserializeFromUInt16(parserATN)
 
 var literalNames = []string{
-	"", "'{'", "','", "'}'", "':'", "'['", "']'", "'true'", "'false'", "'null'",
+	"", "'{'", "','", "'}'", "'['", "']'", "'true'", "'false'", "'null'", "",
+	"", "':'",
 }
 
 var symbolicNames = []string{
-	"", "", "", "", "", "", "", "", "", "", "STRING", "NUMBER", "WS",
+	"", "", "", "", "", "", "", "", "", "STRING", "KEY_STRING", "KEY_COLON",
+	"NUMBER", "WS",
 }
 
 var ruleNames = []string{
@@ -85,19 +87,20 @@ func NewJSONParser(input antlr.TokenStream) *JSONParser {
 
 // JSONParser tokens.
 const (
-	JSONParserEOF    = antlr.TokenEOF
-	JSONParserT__0   = 1
-	JSONParserT__1   = 2
-	JSONParserT__2   = 3
-	JSONParserT__3   = 4
-	JSONParserT__4   = 5
-	JSONParserT__5   = 6
-	JSONParserT__6   = 7
-	JSONParserT__7   = 8
-	JSONParserT__8   = 9
-	JSONParserSTRING = 10
-	JSONParserNUMBER = 11
-	JSONParserWS     = 12
+	JSONParserEOF        = antlr.TokenEOF
+	JSONParserT__0       = 1
+	JSONParserT__1       = 2
+	JSONParserT__2       = 3
+	JSONParserT__3       = 4
+	JSONParserT__4       = 5
+	JSONParserT__5       = 6
+	JSONParserT__6       = 7
+	JSONParserT__7       = 8
+	JSONParserSTRING     = 9
+	JSONParserKEY_STRING = 10
+	JSONParserKEY_COLON  = 11
+	JSONParserNUMBER     = 12
+	JSONParserWS         = 13
 )
 
 // JSONParser rules.
@@ -398,8 +401,8 @@ func NewPairContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokin
 
 func (s *PairContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *PairContext) STRING() antlr.TerminalNode {
-	return s.GetToken(JSONParserSTRING, 0)
+func (s *PairContext) KEY_STRING() antlr.TerminalNode {
+	return s.GetToken(JSONParserKEY_STRING, 0)
 }
 
 func (s *PairContext) Value() IValueContext {
@@ -455,14 +458,10 @@ func (p *JSONParser) Pair() (localctx IPairContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(27)
-		p.Match(JSONParserSTRING)
+		p.Match(JSONParserKEY_STRING)
 	}
 	{
 		p.SetState(28)
-		p.Match(JSONParserT__3)
-	}
-	{
-		p.SetState(29)
 		p.Value()
 	}
 
@@ -571,51 +570,51 @@ func (p *JSONParser) Array() (localctx IArrayContext) {
 		}
 	}()
 
-	p.SetState(44)
+	p.SetState(43)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(31)
-			p.Match(JSONParserT__4)
+			p.SetState(30)
+			p.Match(JSONParserT__3)
 		}
 		{
-			p.SetState(32)
+			p.SetState(31)
 			p.Value()
 		}
-		p.SetState(37)
+		p.SetState(36)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 
 		for _la == JSONParserT__1 {
 			{
-				p.SetState(33)
+				p.SetState(32)
 				p.Match(JSONParserT__1)
 			}
 			{
-				p.SetState(34)
+				p.SetState(33)
 				p.Value()
 			}
 
-			p.SetState(39)
+			p.SetState(38)
 			p.GetErrorHandler().Sync(p)
 			_la = p.GetTokenStream().LA(1)
 		}
 		{
-			p.SetState(40)
-			p.Match(JSONParserT__5)
+			p.SetState(39)
+			p.Match(JSONParserT__4)
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(42)
-			p.Match(JSONParserT__4)
+			p.SetState(41)
+			p.Match(JSONParserT__3)
 		}
 		{
-			p.SetState(43)
-			p.Match(JSONParserT__5)
+			p.SetState(42)
+			p.Match(JSONParserT__4)
 		}
 
 	}
@@ -729,57 +728,57 @@ func (p *JSONParser) Value() (localctx IValueContext) {
 		}
 	}()
 
-	p.SetState(53)
+	p.SetState(52)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case JSONParserSTRING:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(46)
+			p.SetState(45)
 			p.Match(JSONParserSTRING)
 		}
 
 	case JSONParserNUMBER:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(47)
+			p.SetState(46)
 			p.Match(JSONParserNUMBER)
 		}
 
 	case JSONParserT__0:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(48)
+			p.SetState(47)
 			p.Obj()
 		}
 
-	case JSONParserT__4:
+	case JSONParserT__3:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(49)
+			p.SetState(48)
 			p.Array()
 		}
 
-	case JSONParserT__6:
+	case JSONParserT__5:
 		p.EnterOuterAlt(localctx, 5)
+		{
+			p.SetState(49)
+			p.Match(JSONParserT__5)
+		}
+
+	case JSONParserT__6:
+		p.EnterOuterAlt(localctx, 6)
 		{
 			p.SetState(50)
 			p.Match(JSONParserT__6)
 		}
 
 	case JSONParserT__7:
-		p.EnterOuterAlt(localctx, 6)
+		p.EnterOuterAlt(localctx, 7)
 		{
 			p.SetState(51)
 			p.Match(JSONParserT__7)
-		}
-
-	case JSONParserT__8:
-		p.EnterOuterAlt(localctx, 7)
-		{
-			p.SetState(52)
-			p.Match(JSONParserT__8)
 		}
 
 	default:

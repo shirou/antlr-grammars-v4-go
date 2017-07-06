@@ -1,4 +1,3 @@
-
 /** Taken from "The Definitive ANTLR 4 Reference" by Terence Parr */
 
 // Derived from http://json.org
@@ -14,7 +13,7 @@ obj
    ;
 
 pair
-   : STRING ':' value
+   : KEY_STRING value
    ;
 
 array
@@ -37,6 +36,13 @@ STRING
    : '"' (ESC | ~ ["\\])* '"'
    ;
 
+KEY_STRING
+   : '"' (ESC | ~ ["\\])* '"' KEY_COLON
+   ;
+
+KEY_COLON
+   : ':'
+   ;
 
 fragment ESC
    : '\\' (["\\/bfnrt] | UNICODE)
@@ -71,5 +77,5 @@ fragment EXP
 // \- since - means "range" inside [...]
 
 WS
-   : [ \t\n\r] + -> skip
+   : [ \t\n\r]+
    ;
