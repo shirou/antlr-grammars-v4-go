@@ -77,5 +77,5 @@ fragment EXP
 // \- since - means "range" inside [...]
 
 WS
-   : [ \t\n\r]+
+   : [ \t\n\r]+ -> channel(HIDDEN)
    ;

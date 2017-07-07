@@ -312,6 +312,16 @@ func (s *DocumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DocumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitDocument(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) Document() (localctx IDocumentContext) {
 	localctx = NewDocumentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, GraphQLParserRULE_document)
@@ -427,6 +437,16 @@ func (s *DefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitDefinition(s)
+	}
+}
+
+func (s *DefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -574,6 +594,16 @@ func (s *OperationDefinitionContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *OperationDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitOperationDefinition(s)
+	}
+}
+
+func (s *OperationDefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitOperationDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -734,6 +764,16 @@ func (s *SelectionSetContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SelectionSetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitSelectionSet(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) SelectionSet() (localctx ISelectionSetContext) {
 	localctx = NewSelectionSetContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 6, GraphQLParserRULE_selectionSet)
@@ -851,6 +891,16 @@ func (s *OperationTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OperationTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitOperationType(s)
+	}
+}
+
+func (s *OperationTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitOperationType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -974,6 +1024,16 @@ func (s *SelectionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SelectionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitSelection(s)
+	}
+}
+
+func (s *SelectionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitSelection(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1124,6 +1184,16 @@ func (s *FieldContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FieldContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitField(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) Field() (localctx IFieldContext) {
 	localctx = NewFieldContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 12, GraphQLParserRULE_field)
@@ -1259,6 +1329,16 @@ func (s *FieldNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FieldNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitFieldName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) FieldName() (localctx IFieldNameContext) {
 	localctx = NewFieldNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 14, GraphQLParserRULE_fieldName)
@@ -1364,6 +1444,16 @@ func (s *AliasContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AliasContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitAlias(s)
+	}
+}
+
+func (s *AliasContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitAlias(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1482,6 +1572,16 @@ func (s *ArgumentsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArgumentsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitArguments(s)
+	}
+}
+
+func (s *ArgumentsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitArguments(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1613,6 +1713,16 @@ func (s *ArgumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ArgumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitArgument(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) Argument() (localctx IArgumentContext) {
 	localctx = NewArgumentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 20, GraphQLParserRULE_argument)
@@ -1725,6 +1835,16 @@ func (s *FragmentSpreadContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FragmentSpreadContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitFragmentSpread(s)
+	}
+}
+
+func (s *FragmentSpreadContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitFragmentSpread(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1858,6 +1978,16 @@ func (s *InlineFragmentContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InlineFragmentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitInlineFragment(s)
+	}
+}
+
+func (s *InlineFragmentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitInlineFragment(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -2012,6 +2142,16 @@ func (s *FragmentDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FragmentDefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitFragmentDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) FragmentDefinition() (localctx IFragmentDefinitionContext) {
 	localctx = NewFragmentDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 26, GraphQLParserRULE_fragmentDefinition)
@@ -2131,6 +2271,16 @@ func (s *FragmentNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FragmentNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitFragmentName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) FragmentName() (localctx IFragmentNameContext) {
 	localctx = NewFragmentNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 28, GraphQLParserRULE_fragmentName)
@@ -2238,6 +2388,16 @@ func (s *DirectivesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DirectivesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitDirectives(s)
+	}
+}
+
+func (s *DirectivesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitDirectives(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -2360,6 +2520,16 @@ func (s *DirectiveContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DirectiveContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitDirective(s)
+	}
+}
+
+func (s *DirectiveContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitDirective(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -2512,6 +2682,16 @@ func (s *TypeConditionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TypeConditionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitTypeCondition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) TypeCondition() (localctx ITypeConditionContext) {
 	localctx = NewTypeConditionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 34, GraphQLParserRULE_typeCondition)
@@ -2619,6 +2799,16 @@ func (s *VariableDefinitionsContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *VariableDefinitionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitVariableDefinitions(s)
+	}
+}
+
+func (s *VariableDefinitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitVariableDefinitions(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -2766,6 +2956,16 @@ func (s *VariableDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *VariableDefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitVariableDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) VariableDefinition() (localctx IVariableDefinitionContext) {
 	localctx = NewVariableDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 38, GraphQLParserRULE_variableDefinition)
@@ -2877,6 +3077,16 @@ func (s *VariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *VariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitVariable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) Variable() (localctx IVariableContext) {
 	localctx = NewVariableContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 40, GraphQLParserRULE_variable)
@@ -2975,6 +3185,16 @@ func (s *DefaultValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DefaultValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitDefaultValue(s)
+	}
+}
+
+func (s *DefaultValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitDefaultValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -3086,6 +3306,16 @@ func (s *ValueOrVariableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ValueOrVariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitValueOrVariable(s)
+	}
+}
+
+func (s *ValueOrVariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitValueOrVariable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -3218,6 +3448,16 @@ func (s *StringValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StringValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitStringValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type BooleanValueContext struct {
 	*ValueContext
 }
@@ -3252,6 +3492,16 @@ func (s *BooleanValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BooleanValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitBooleanValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type NumberValueContext struct {
 	*ValueContext
 }
@@ -3283,6 +3533,16 @@ func (s *NumberValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NumberValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitNumberValue(s)
+	}
+}
+
+func (s *NumberValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitNumberValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -3323,6 +3583,16 @@ func (s *ArrayValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArrayValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitArrayValue(s)
+	}
+}
+
+func (s *ArrayValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitArrayValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -3477,6 +3747,16 @@ func (s *Type_Context) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *Type_Context) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitType_(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) Type_() (localctx IType_Context) {
 	localctx = NewType_Context(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 48, GraphQLParserRULE_type_)
@@ -3607,6 +3887,16 @@ func (s *TypeNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TypeNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitTypeName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) TypeName() (localctx ITypeNameContext) {
 	localctx = NewTypeNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 50, GraphQLParserRULE_typeName)
@@ -3704,6 +3994,16 @@ func (s *ListTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ListTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitListType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphQLParser) ListType() (localctx IListTypeContext) {
 	localctx = NewListTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 52, GraphQLParserRULE_listType)
@@ -3795,6 +4095,16 @@ func (s *NonNullTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NonNullTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitNonNullType(s)
+	}
+}
+
+func (s *NonNullTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitNonNullType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -3905,6 +4215,16 @@ func (s *ArrayContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArrayContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphQLListener); ok {
 		listenerT.ExitArray(s)
+	}
+}
+
+func (s *ArrayContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphQLVisitor:
+		return t.VisitArray(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 

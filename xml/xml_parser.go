@@ -245,6 +245,16 @@ func (s *DocumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DocumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitDocument(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *XMLParser) Document() (localctx IDocumentContext) {
 	localctx = NewDocumentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, XMLParserRULE_document)
@@ -400,6 +410,16 @@ func (s *PrologContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PrologContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(XMLParserListener); ok {
 		listenerT.ExitProlog(s)
+	}
+}
+
+func (s *PrologContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitProlog(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -602,6 +622,16 @@ func (s *ContentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ContentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitContent(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *XMLParser) Content() (localctx IContentContext) {
 	localctx = NewContentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 4, XMLParserRULE_content)
@@ -800,6 +830,16 @@ func (s *ElementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ElementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitElement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *XMLParser) Element() (localctx IElementContext) {
 	localctx = NewElementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 6, XMLParserRULE_element)
@@ -973,6 +1013,16 @@ func (s *ReferenceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ReferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitReference(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *XMLParser) Reference() (localctx IReferenceContext) {
 	localctx = NewReferenceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, XMLParserRULE_reference)
@@ -1079,6 +1129,16 @@ func (s *AttributeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AttributeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(XMLParserListener); ok {
 		listenerT.ExitAttribute(s)
+	}
+}
+
+func (s *AttributeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitAttribute(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1218,6 +1278,16 @@ func (s *ChardataContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ChardataContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitChardata(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *XMLParser) Chardata() (localctx IChardataContext) {
 	localctx = NewChardataContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 12, XMLParserRULE_chardata)
@@ -1320,6 +1390,16 @@ func (s *MiscContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MiscContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(XMLParserListener); ok {
 		listenerT.ExitMisc(s)
+	}
+}
+
+func (s *MiscContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case XMLParserVisitor:
+		return t.VisitMisc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
